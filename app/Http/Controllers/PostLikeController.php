@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\PostLiked;
 use Illuminate\Http\Request;
 use App\Models\Post;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Mail; 
 
 class PostLikeController extends Controller
 {
@@ -13,7 +13,7 @@ class PostLikeController extends Controller
     {
         $this->middleware(['auth']);
     }
-
+ 
     public function store(Post $post, Request $request)
     {     
        

@@ -21,7 +21,7 @@
                 <a href="{{route('posts')}}"class = "p-3">Post</a>
             </li>
         </ul>
-
+ 
         <ul class = "flex items-center">
 
             @auth

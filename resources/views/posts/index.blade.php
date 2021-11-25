@@ -31,6 +31,7 @@
                     @endforeach
                     
                     {{ $posts->links()}}
+                    
             @else
                 <p>There are no posts</p>
             @endif

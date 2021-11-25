@@ -34,4 +34,40 @@
                             $post->likes->count())}}</span>
     </div>
 
+    <?php
+
+    use App\Models\Comment;
+
+    $comments = Comment::latest()->where('post_id', '=', $post->id)->paginate(10);
+    ?>
+
+    @foreach($comments as $comment)
+
+    <div class="ml-72">
+        <a href="{{ route('users.posts', $comment->user) }}" class="font-bold">{{$comment->user->name}}</a> <span class="text-gray-600
+                        text-sm">{{$comment->created_at->diffForHumans()}}</span>
+        <p>{{$comment->comment}}</p>
+
+        @if($comment->user_id == auth()->user()->id)
+        <form action="{{ route('posts.comments', $comment) }}" method="post">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="text-blue-500">Delete</button>
+        </form>
+        @endif
+    </div>
+
+    @endforeach
+    {{$comments->links()}}
+
+    @auth
+    <form action="{{route('posts.comments', $post)}}" method="post" class="ml-72 ml-1">
+        @csrf
+
+        <textarea name="comment" id="comment" cols="30" rows="1" class="bg-gray-100
+                    border-2 w-full p-4 rounded-lg @error('comment') border-red-500 @enderror" placeholder="Comment something!"></textarea>
+        <button type="submit" class="text-blue-500">Comment</button>
+    </form>
+    @endauth
+
 </div>
